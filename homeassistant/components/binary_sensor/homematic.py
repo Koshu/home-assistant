@@ -43,6 +43,8 @@ SENSOR_TYPES = {
     "loudness": "sound"
 }
 
+HMMOTIONSENSOR = ["HM-Sen-MDIR-WM55"]
+
 HMSHUTTERCONTACTS = ["HM-Sec-SC",
                      "HM-Sec-SC-2",
                      "ZEL STG RM FFK",
@@ -145,6 +147,8 @@ class HMBinarySensor(homematic.HMDevice, BinarySensorDevice):
                     self._state = 1
                     self.update_ha_state()
                     self._state = 0
+            elif attribute == 'MOTION':
+                self._state = value
             elif attribute == 'RSSI_DEVICE':
                 self._rssi = value
             elif attribute == 'ERROR':
@@ -158,6 +162,15 @@ class HMBinarySensor(homematic.HMDevice, BinarySensorDevice):
         super().connect_to_homematic()
         # pylint: disable=protected-access
         if (not self._hmdevice._PARENT and
+                self._hmdevice._TYPE in HMMOTIONSENSOR) or \
+                (self._hmdevice._PARENT and self._hmdevice._PARENT_TYPE
+                 in HMMOTIONSENSOR):
+            _LOGGER.debug("Setting up HMotionSensor %s",
+                          # pylint: disable=protected-access
+                          self._hmdevice._ADDRESS)
+            self._sensor_class = 'motion'
+        # pylint: disable=protected-access
+        elif (not self._hmdevice._PARENT and
                 self._hmdevice._TYPE in HMSHUTTERCONTACTS) or \
                 (self._hmdevice._PARENT and self._hmdevice._PARENT_TYPE
                  in HMSHUTTERCONTACTS):
