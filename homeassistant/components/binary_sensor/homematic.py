@@ -73,14 +73,14 @@ HMREMOTES = ["BRC-H",
              "HM-RC-P1",
              "HM-RC-SB-X",
              "HM-RC-X",
-             "HM-PB-2-WM",
-             "HM-PB-4-WM",
-             "HM-PB-6-WM55"
              "RC-H",
              "atent",
              "ZEL STG RM HS 4"]
 WALLBUTTONS = ["HM-PB-2-WM55-2",
                "HM-PB-2-WM55",
+               "HM-PB-2-WM",
+               "HM-PB-4-WM",
+               "HM-PB-6-WM55",
                "ZEL STG RM WT 2",
                "263 135"]
 
